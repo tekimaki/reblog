@@ -1,4 +1,21 @@
 <?php
+
+global $gBitSystem;
+
+$gBitSystem->registerPackageInfo( REBLOG_PKG_NAME, array(
+	'description' => "Aggregates RSS feeds from other sites and resaves those items as Blog Posts while maintaining links back to the source of the feed items.",
+	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
+) );
+
+// Requirements
+$gBitSystem->registerRequirements( REBLOG_PKG_NAME, array(
+    'liberty' => array( 'min' => '2.1.4' ),
+));
+
+// Install process
+global $gBitInstaller;
+if( is_object( $gBitInstaller ) ){
+
 $tables = array(
 'reblog_feeds' => "
 	feed_id I4 PRIMARY,
@@ -30,13 +47,4 @@ foreach( array_keys( $tables ) AS $tableName ) {
 	$gBitInstaller->registerSchemaTable( REBLOG_PKG_NAME, $tableName, $tables[$tableName] );
 }
 
-$gBitInstaller->registerPackageInfo( REBLOG_PKG_NAME, array(
-	'description' => "Aggregates RSS feeds from other sites and resaves those items as Blog Posts while maintaining links back to the source of the feed items.",
-	'license' => '<a href="http://www.gnu.org/licenses/licenses.html#LGPL">LGPL</a>',
-) );
-
-// Requirements
-$gBitInstaller->registerRequirements( REBLOG_PKG_NAME, array(
-    'liberty' => array( 'min' => '2.1.4' ),
-));
-
+}
